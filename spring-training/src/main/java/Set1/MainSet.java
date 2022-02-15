@@ -1,6 +1,6 @@
-package Set;
+package Set1;
 
-public class Main {
+public class MainSet {
     
         //HashSet
         /*
