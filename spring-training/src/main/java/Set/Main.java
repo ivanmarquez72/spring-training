@@ -1,7 +1,7 @@
 package Set;
 
 public class Main {
-    public static void main(String[] args) {
+    
         //HashSet
         /*
         Set.Producto m = new Set.Producto("Pan", 6);
@@ -298,5 +298,5 @@ public class Main {
 
         System.out.println("Removemos: " + mandado.remove(q) );
         */
-    }
+    
 }
