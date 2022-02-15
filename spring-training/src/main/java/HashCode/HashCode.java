@@ -1,7 +1,7 @@
 package HashCode;
 
 public class HashCode {
-    public static void main(String[] args) {
+    
         //HashCode
         /*String s1 = "Cat";
         String s2 = "Cat";
@@ -51,5 +51,5 @@ public class HashCode {
         //Lo vuelve String
         System.out.println(result);
         */
-    }
+    
 }
