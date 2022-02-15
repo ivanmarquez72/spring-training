@@ -1,7 +1,7 @@
 package Queue;
 
 public class Queue {
-    public static void main(String[] args) {
+    
         //Queue
         /*
         Queue<String> cola = new LinkedList<>();
@@ -38,5 +38,5 @@ public class Queue {
         //Carece de indices ya que es una coleccion
 
         // Definir 5 instancias de la Clase Set.Producto
-    }
+    
 }
