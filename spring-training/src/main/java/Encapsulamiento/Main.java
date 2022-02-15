@@ -1,7 +1,7 @@
 package Encapsulamiento;
 
 public class Main {
-    public static void main(String[] args) {
+    
         //Encapsulamiento
         /*Encapsulamiento.Empleado emp1 = new Encapsulamiento.Empleado();
         emp1.setNombre("Ivan");
@@ -32,5 +32,5 @@ public class Main {
         empresa.imprimirLista();
         System.out.println("--------");
         empresa.imprimirLista(2);*/
-    }
+    
 }
