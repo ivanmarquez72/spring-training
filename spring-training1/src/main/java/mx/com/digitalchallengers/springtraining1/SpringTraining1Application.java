@@ -21,11 +21,15 @@ public class SpringTraining1Application {
     //inyeccion
     private Empleado empleado;
 
+    @Autowired
+    private HelloController hello;
+
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx){
         return args -> {
             //escuela();
             empleado.historia();
+            hello.index();
             System.out.println("Let's inspect the beans provided by Spring Boot!: ");
             String[] beanNames = ctx.getBeanDefinitionNames();
             Arrays.sort(beanNames);
