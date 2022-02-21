@@ -2,7 +2,7 @@ package Mutable;
 
 public class Mutable {
     //Mutable e inmutable
-    public static void main(String[] args) {
+    public static void ejercicio() {
             //Mutable
             Materia materia = new Materia("Programacion", 5);
             System.out.println("Primera declaracion: " + materia.getNombre());
