@@ -1,9 +1,6 @@
 package mx.com.digitalchallengers.springtraining2.entidad;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +9,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
 public class Factura {
     @Id
     @GeneratedValue(
@@ -23,10 +21,12 @@ public class Factura {
     @Column(name = "referenciaFactura")
     private String referenciaFactura;
 
-    @ManyToOne
+    @ManyToOne(
+            fetch = FetchType.LAZY
+    )
 //    @JoinColumn(
-//            name = "idCliente",                 //nombre de la columna en la DB
-//            referencedColumnName = "idCliente"  //referencia al atributo del objeto
+//            name = "cliente_id_cliente",      //nombre de la columna en la DB
+//            referencedColumnName = "cliente"  //referencia al atributo del objeto
 //    )
     private Cliente cliente;
 

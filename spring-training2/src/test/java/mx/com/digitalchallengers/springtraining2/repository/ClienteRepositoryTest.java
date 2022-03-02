@@ -17,8 +17,8 @@ class ClienteRepositoryTest {
     @Test
     public void saveCliente(){
         Cliente cliente = Cliente.builder()
-                .nombre("Rogelio")
-                .apellido("Corona")
+                .nombre("Iguans")
+                .apellido("Roldan")
                 .build();
         clienteRepository.save(cliente);
     }

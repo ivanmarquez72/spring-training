@@ -1,8 +1,8 @@
 package mx.com.digitalchallengers.springtraining2.repository;
 
+import mx.com.digitalchallengers.springtraining2.dto.ClienteDto;
 import mx.com.digitalchallengers.springtraining2.dto.FacturaCliente;
 import mx.com.digitalchallengers.springtraining2.entidad.Cliente;
-import mx.com.digitalchallengers.springtraining2.entidad.Factura;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -34,8 +34,8 @@ public class ClienteController {
     }
 
     @GetMapping("/cliente")
-    public List<Cliente> getClientes(){
-        List<Cliente> clientes = clienteRepository.findAll();
+    public List<ClienteDto> getClientes(){
+        List<ClienteDto> clientes = clienteRepository.getAllClientes();
         return clientes;
     }
 
@@ -46,8 +46,8 @@ public class ClienteController {
     }
 
     @GetMapping("/facturasId")
-    public List<Factura> getFacturaByClienteId(){
-        List<Factura> facturas = facturaRepository.getFacturaByClienteId(6);
+    public List<FacturaCliente> getFacturaByClienteId(){
+        List<FacturaCliente> facturas = facturaRepository.getFacturaByClienteId(6);
         return facturas;
     }
 

@@ -12,13 +12,14 @@ import java.util.List;
 public interface FacturaRepository extends JpaRepository<Factura, Integer> {
     //Native Named Param
     @Query(
-            value = "select f.fecha_factura, f.referencia_factura " +
-                    "from cliente c " +
-                    "inner join factura f " +
-                    "on :idCliente = c.id_cliente = f.cliente_id_cliente",
+            value = "select c.nombre,c.apellido, f.fecha_factura, " +
+                    "f.referencia_factura " +
+                    "from factura f join  " +
+                    "(select * from cliente where id_cliente = :idCliente) c " +
+                    "on f.cliente_id_cliente = c.id_cliente",
             nativeQuery = true
     )
-    List<Factura> getFacturaByClienteId(@Param("idCliente")int idCliente);
+    List<FacturaCliente> getFacturaByClienteId(@Param("idCliente")int idCliente);
 
     //JPQL
     @Query("select new " +

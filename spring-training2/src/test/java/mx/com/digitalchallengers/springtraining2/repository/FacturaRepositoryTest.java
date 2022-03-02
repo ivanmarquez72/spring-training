@@ -25,18 +25,18 @@ class FacturaRepositoryTest {
     @Autowired
     private EntityManager entityManager;
 
-    @Test
-    public void saveFActuraCliente(){
-        Cliente cliente = clienteRepository.getClienteById(4);
-        Factura factura = Factura
-                .builder()
-                .cliente(cliente)
-                .fecha("28/02/2022")
-                .referenciaFactura("FAC2802")
-                .build();
+//    @Test
+//    public void saveFActuraCliente(){
+//        Cliente cliente = clienteRepository.getClienteById(4);
+//        Factura factura = Factura
+//                .builder()
+//                .cliente(cliente)
+//                .fecha("28/02/2022")
+//                .referenciaFactura("FAC2802")
+//                .build();
+//
+//        repository.save(factura);
 
-        repository.save(factura);
-    }
 
     @Test
     public void getFacturasCliente(){

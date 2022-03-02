@@ -1,9 +1,6 @@
 package mx.com.digitalchallengers.springtraining2.entidad;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,6 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Builder
 @Table(
         name = "cliente"
@@ -36,7 +34,11 @@ public class Cliente {
    @OneToMany(
            mappedBy = "cliente",
            cascade = CascadeType.ALL,
-           targetEntity = Factura.class
+           fetch = FetchType.LAZY
    )
+//   @JoinColumn(
+//           name = "id_cliente",
+//           referencedColumnName = "idCliente"
+//   )
     private List<Factura> facturas = new ArrayList<>();
 }
