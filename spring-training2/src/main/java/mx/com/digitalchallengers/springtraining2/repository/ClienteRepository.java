@@ -1,6 +1,5 @@
 package mx.com.digitalchallengers.springtraining2.repository;
 
-import mx.com.digitalchallengers.springtraining2.dto.ClienteDto;
 import mx.com.digitalchallengers.springtraining2.entidad.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -36,9 +35,7 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     )
     Cliente getClienteByNameParam(@Param("name")String name);
 
-    @Query(value = "select new mx.com.digitalchallengers.springtraining2" +
-            ".dto.ClienteDto(c.idCliente,c.nombre,c.apellido) " +
-            "from Cliente c")
-    List<ClienteDto> getAllClientes();
+    @Query(value = "select c from Cliente c")
+    List<Cliente> getAllClientes();
 
 }

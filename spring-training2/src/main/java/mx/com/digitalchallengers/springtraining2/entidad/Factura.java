@@ -21,13 +21,15 @@ public class Factura {
     @Column(name = "referenciaFactura")
     private String referenciaFactura;
 
-    @ManyToOne(
-            fetch = FetchType.LAZY
-    )
-//    @JoinColumn(
-//            name = "cliente_id_cliente",      //nombre de la columna en la DB
-//            referencedColumnName = "cliente"  //referencia al atributo del objeto
-//    )
+    //Unidireccionalidad desde cliente
+//    @Column(name = "cliente_id_cliente" )
+//    private int cliente;
+
+    //JoinColumn y Column no pueden ir juntas
+    //Unidecchionalidad solo una puede tener la notacion de la relacion
+
+    //Unidireccionalidad desde Facturas
+    @ManyToOne //(fetch = FetchType.LAZY)
     private Cliente cliente;
 
 }

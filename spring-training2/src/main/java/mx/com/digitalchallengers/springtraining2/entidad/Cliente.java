@@ -1,5 +1,6 @@
 package mx.com.digitalchallengers.springtraining2.entidad;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,14 +32,10 @@ public class Cliente {
     @Column(name = "apellido")
     private String apellido;
 
-   @OneToMany(
-           mappedBy = "cliente",
-           cascade = CascadeType.ALL,
-           fetch = FetchType.LAZY
-   )
-//   @JoinColumn(
-//           name = "id_cliente",
-//           referencedColumnName = "idCliente"
-//   )
-    private List<Factura> facturas = new ArrayList<>();
+    //Unidireccionalidad desde Cliente
+//    @OneToMany(mappedBy = "cliente")
+//    @JsonBackReference //Corregir el error de Json al hacer la peticion
+//    private List<Factura> facturas = new ArrayList<>();
+
+
 }
