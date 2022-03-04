@@ -22,12 +22,12 @@ public class Factura {
     private String referenciaFactura;
 
     //Unidireccionalidad desde cliente
-//    @Column(name = "cliente_id_cliente" )
-//    private int cliente;
+    @Column(name = "cliente_id_cliente" )
+    private int cliente;
 
     //Unidireccionalidad desde Facturas
-    @ManyToOne //(fetch = FetchType.LAZY)
-    private Cliente cliente;
+//    @ManyToOne //(fetch = FetchType.LAZY)
+//    private Cliente cliente;
 
     //JoinColumn y Column no pueden ir juntas
     //Unidecchionalidad solo una puede tener la notacion de la relacion

@@ -33,8 +33,10 @@ public class Cliente {
     private String apellido;
 
     //Unidireccionalidad desde Cliente
-//    @OneToMany(mappedBy = "cliente")// cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private List<Factura> facturas = new ArrayList<>();
+    //@OneToMany(mappedBy = "cliente")// cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cliente_id_cliente")
+    private List<Factura> facturas = new ArrayList<>();
 
 
 }
