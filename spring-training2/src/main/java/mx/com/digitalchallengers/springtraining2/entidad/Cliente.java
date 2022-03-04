@@ -33,8 +33,7 @@ public class Cliente {
     private String apellido;
 
     //Unidireccionalidad desde Cliente
-//    @OneToMany(mappedBy = "cliente")
-//    @JsonBackReference //Corregir el error de Json al hacer la peticion
+//    @OneToMany(mappedBy = "cliente")// cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 //    private List<Factura> facturas = new ArrayList<>();
 
 

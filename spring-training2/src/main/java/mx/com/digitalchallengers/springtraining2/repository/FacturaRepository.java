@@ -20,7 +20,6 @@ public interface FacturaRepository extends JpaRepository<Factura, Integer> {
     List<Factura> getFacturaByClienteId(@Param("idCliente")int idCliente);
 
     //JPQL
-    @Query("select f " +
-            "from Factura f join f.cliente c where c.idCliente = 1")
+    @Query("select f from Factura f join f.cliente c where c.idCliente = 1")
     List<Factura> getFacturaByClienteIdJPQL();
 }

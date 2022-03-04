@@ -25,11 +25,11 @@ public class Factura {
 //    @Column(name = "cliente_id_cliente" )
 //    private int cliente;
 
-    //JoinColumn y Column no pueden ir juntas
-    //Unidecchionalidad solo una puede tener la notacion de la relacion
-
     //Unidireccionalidad desde Facturas
     @ManyToOne //(fetch = FetchType.LAZY)
     private Cliente cliente;
+
+    //JoinColumn y Column no pueden ir juntas
+    //Unidecchionalidad solo una puede tener la notacion de la relacion
 
 }
