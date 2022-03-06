@@ -18,11 +18,11 @@ public class FacturaController {
     @Autowired
     private FacturaRepository facturaRepository;
 
-//    @GetMapping("/facturasId")
-//    public List<Factura> getFactura(){
-//        List<Factura> facturas = facturaRepository.getFacturaByClienteIdJPQL();
-//        return facturas;
-//    }
+    @GetMapping("/facturasId")
+    public List<Factura> getFactura(){
+        List<Factura> facturas = facturaRepository.getFacturaByClienteIdJPQL();
+        return facturas;
+    }
 
     @GetMapping("/facturasIdNative")
     public List<Factura> getFacturaByClienteId(){

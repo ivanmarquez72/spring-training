@@ -1,6 +1,7 @@
 package mx.com.digitalchallengers.springtraining2.entidad;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,8 +35,11 @@ public class Cliente {
 
     //Unidireccionalidad desde Cliente
     //@OneToMany(mappedBy = "cliente")// cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    // una forma, sin las notaciones
     @OneToMany(cascade = CascadeType.ALL)
+    //En JoinColumn debe de ir el nombre de la columna en la base de datos no de la variable
     @JoinColumn(name = "cliente_id_cliente")
+    //@JsonManagedReference
     private List<Factura> facturas = new ArrayList<>();
 
 

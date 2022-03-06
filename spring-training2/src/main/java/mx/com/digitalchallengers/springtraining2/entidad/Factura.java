@@ -1,5 +1,7 @@
 package mx.com.digitalchallengers.springtraining2.entidad;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,15 +23,14 @@ public class Factura {
     @Column(name = "referenciaFactura")
     private String referenciaFactura;
 
-    //Unidireccionalidad desde cliente
-    @Column(name = "cliente_id_cliente" )
-    private int cliente;
-
     //Unidireccionalidad desde Facturas
-//    @ManyToOne //(fetch = FetchType.LAZY)
-//    private Cliente cliente;
+    @ManyToOne (fetch = FetchType.LAZY)
+    //@JoinColumn(name = "cliente_id_cliente")
+    //@JsonBackReference
+    private Cliente cliente;
 
     //JoinColumn y Column no pueden ir juntas
     //Unidecchionalidad solo una puede tener la notacion de la relacion
+
 
 }
