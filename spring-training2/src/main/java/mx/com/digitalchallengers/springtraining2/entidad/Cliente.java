@@ -12,7 +12,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @Builder
 @Table(
         name = "cliente"
@@ -33,14 +32,25 @@ public class Cliente {
     @Column(name = "apellido")
     private String apellido;
 
-    //Unidireccionalidad desde Cliente
-    //@OneToMany(mappedBy = "cliente")// cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    // una forma, sin las notaciones
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(
+            mappedBy = "cliente",
+            fetch = FetchType.EAGER
+            //mappedBy = "cliente"
+            //,orphanRemoval = true
+    )
     //En JoinColumn debe de ir el nombre de la columna en la base de datos no de la variable
-    @JoinColumn(name = "cliente_id_cliente")
-    //@JsonManagedReference
+    //la columna que es llave foranea de esta clase o tabla
+    //@JoinColumn(name = "cliente_id_cliente")
+    @JsonManagedReference
     private List<Factura> facturas = new ArrayList<>();
 
-
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "idCliente=" + idCliente +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", facturas=" + facturas +
+                '}';
+    }
 }

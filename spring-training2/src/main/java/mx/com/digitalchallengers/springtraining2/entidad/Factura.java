@@ -11,7 +11,6 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@ToString
 public class Factura {
     @Id
     @GeneratedValue(
@@ -25,12 +24,21 @@ public class Factura {
 
     //Unidireccionalidad desde Facturas
     @ManyToOne (fetch = FetchType.LAZY)
-    //@JoinColumn(name = "cliente_id_cliente")
-    //@JsonBackReference
+    @JoinColumn(name = "cliente_id_cliente")
+    //JoinColumn se le pone el nombre de la clave foranea que esta en esta clase
+    @JsonBackReference
     private Cliente cliente;
 
     //JoinColumn y Column no pueden ir juntas
     //Unidecchionalidad solo una puede tener la notacion de la relacion
 
 
+    @Override
+    public String toString() {
+        return "Factura{" +
+                "idFactura=" + idFactura +
+                ", fecha='" + fecha + '\'' +
+                ", referenciaFactura='" + referenciaFactura + '\'' +
+                '}';
+    }
 }

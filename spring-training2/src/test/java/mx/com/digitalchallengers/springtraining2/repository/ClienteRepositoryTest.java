@@ -27,7 +27,6 @@ class ClienteRepositoryTest {
     public void printAllClientes(){
         List<Cliente> clientes = clienteRepository.findAll();
         System.out.println("clientes: " + clientes);
-        System.out.println();
         clientes.forEach(System.out::println);
     }
 

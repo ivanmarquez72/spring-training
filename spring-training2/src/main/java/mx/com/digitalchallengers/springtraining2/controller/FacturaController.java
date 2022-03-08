@@ -1,5 +1,6 @@
 package mx.com.digitalchallengers.springtraining2.controller;
 
+import mx.com.digitalchallengers.springtraining2.entidad.Cliente;
 import mx.com.digitalchallengers.springtraining2.entidad.Factura;
 import mx.com.digitalchallengers.springtraining2.repository.FacturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class FacturaController {
 
     @GetMapping("/facturasIdNative")
     public List<Factura> getFacturaByClienteId(){
-        List<Factura> facturas = facturaRepository.getFacturaByClienteId(6);
+        List<Factura> facturas = facturaRepository.getFacturaByClienteId(19);
         return facturas;
     }
 
