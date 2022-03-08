@@ -6,7 +6,9 @@ import mx.com.digitalchallengers.springtraining2.repository.FacturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,9 +21,9 @@ public class FacturaController {
     @Autowired
     private FacturaRepository facturaRepository;
 
-    @GetMapping("/facturasId")
-    public List<Factura> getFactura(){
-        List<Factura> facturas = facturaRepository.getFacturaByClienteIdJPQL();
+    @GetMapping("/clientes/{idCliente}/facturas")
+    public List<Factura> getFactura(@PathVariable(value = "idCliente") int id){
+        List<Factura> facturas = facturaRepository.getFacturaByClienteIdJPQL(id);
         return facturas;
     }
 

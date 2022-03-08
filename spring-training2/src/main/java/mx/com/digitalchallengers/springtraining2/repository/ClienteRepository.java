@@ -38,4 +38,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     @Query(value = "select c from Cliente c")
     List<Cliente> getAllClientes();
 
+    //@Query(value = "")
+
 }
