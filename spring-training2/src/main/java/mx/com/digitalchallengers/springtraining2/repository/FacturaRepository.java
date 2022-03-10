@@ -1,5 +1,6 @@
 package mx.com.digitalchallengers.springtraining2.repository;
 
+import mx.com.digitalchallengers.springtraining2.entidad.Cliente;
 import mx.com.digitalchallengers.springtraining2.entidad.Factura;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,4 +23,10 @@ public interface FacturaRepository extends JpaRepository<Factura, Integer> {
     //JPQL
     @Query("select f from Factura f join f.cliente c where c.idCliente = :id")
     List<Factura> getFacturaByClienteIdJPQL(int id);
+
+    @Query("select f from Factura f where f.cliente.idCliente = :id and f.fecha = :fecha")
+    List<Factura> getFacturaByNombreAndFecha(int id, String fecha);
+
+    @Query("select f from Factura f where f.cliente.idCliente = :id and f.referenciaFactura = :referencia")
+    Factura getFacturaByIdClienteAndReferencia(int id, String referencia);
 }

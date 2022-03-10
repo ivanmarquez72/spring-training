@@ -9,7 +9,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
+public interface ClienteRepository
+        extends JpaRepository<Cliente, Integer> {
 
     public List<Cliente> findByNombre(String nombre);
 
@@ -39,5 +40,19 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
     List<Cliente> getAllClientes();
 
     //@Query(value = "")
+
+    @Query(value = "select c.idCliente from Cliente c  where :nombre = c.nombre")
+    int getIdClienteByNombre(@Param("nombre") String nombre);
+
+    @Query(value = "select c from Cliente c  where :nombre = c.nombre")
+    List<Cliente> getClientesByNombre(@Param("nombre") String nombre);
+
+    @Query(value = "select c from Cliente c  where :nombre = c.nombre and :apellido = c.apellido")
+    List<Cliente> getClientesByNombreAndApellido(@Param("nombre") String nombre,
+                                                 @Param("apellido") String apellido);
+
+    @Query(value = "select c from Cliente c  where :nombre = c.nombre and :apellido = c.apellido")
+    Cliente getClienteByNombreAndApellido(@Param("nombre") String nombre,
+                                          @Param("apellido") String apellido);
 
 }

@@ -13,7 +13,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@SpringBootTest(classes = FacturaRepository.class)
 class FacturaRepositoryTest {
 
     @Autowired
@@ -38,11 +38,11 @@ class FacturaRepositoryTest {
 //        repository.save(factura);
 
 
-    @Test
-    public void getFacturasCliente(){
-        TypedQuery<Factura> query = entityManager.
-                createQuery("SELECT f FROM Cliente c inner join c.facturas f", Factura.class);
-        List<Factura> facturas = query.getResultList();
-        facturas.forEach(System.out::println);
-    }
+//    @Test
+//    public void getFacturasCliente(){
+//        TypedQuery<Factura> query = entityManager.
+//                createQuery("SELECT f FROM Cliente c inner join c.facturas f", Factura.class);
+//        List<Factura> facturas = query.getResultList();
+//        facturas.forEach(System.out::println);
+//    }
 }

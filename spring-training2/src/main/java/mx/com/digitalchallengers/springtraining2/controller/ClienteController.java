@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.QueryParam;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Controller
@@ -19,9 +19,23 @@ public class ClienteController {
 
     @GetMapping("/clientes/{id}")
     public Cliente getClienteId(@PathVariable(value = "id") int id){
-        //List<Cliente> clientes = clienteRepository.findAll();
         Cliente cliente = clienteRepository.getClienteById(id);
         return cliente;
+    }
+
+    @GetMapping("/clientes/byNombre")
+    public List<Cliente> getClienteNombre(@QueryParam("nombre") String nombre){
+        //List<Cliente> clientes = clienteRepository.findAll();
+        List<Cliente> clientes = clienteRepository.getClientesByNombre(nombre);
+        return clientes;
+    }
+
+    @GetMapping("/clientes/byNombreAndApellido")
+    public List<Cliente> getClientesNombreAndApellido(@QueryParam("nombre") String nombre,
+                                                     @QueryParam("apellido") String apellido){
+        //List<Cliente> clientes = clienteRepository.findAll();
+        List<Cliente> clientes = clienteRepository.getClientesByNombreAndApellido(nombre,apellido);
+        return clientes;
     }
 
     @DeleteMapping("/clientes/{id}/remove")
@@ -38,6 +52,23 @@ public class ClienteController {
     @PutMapping(value = "/clientes/{id}", consumes = "application/json")
     public Cliente updateCliente(@PathVariable(value = "id") int id, @RequestBody Cliente cliente){
         return clienteRepository.findById(id)
+                .map(cliente1 -> {
+                    cliente1.setNombre(cliente.getNombre());
+                    cliente1.setApellido(cliente.getApellido());
+                    return clienteRepository.save(cliente1);
+                })
+                .orElseGet(()-> {
+                    return clienteRepository.save(cliente);
+                } );
+    }
+
+    @PutMapping(value = "/clientes", consumes = "application/json")
+    public Cliente updateClienteNombreApellido(@RequestBody Cliente cliente,
+                                               @QueryParam("nombre") String nombre,
+                                               @QueryParam("apellido") String apellido){
+        Cliente cliente2 = clienteRepository.getClienteByNombreAndApellido(nombre, apellido);
+
+        return clienteRepository.findById(cliente2.getIdCliente())
                 .map(cliente1 -> {
                     cliente1.setNombre(cliente.getNombre());
                     cliente1.setApellido(cliente.getApellido());
