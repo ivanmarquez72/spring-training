@@ -4,6 +4,7 @@ import mx.com.digitalchallengers.springtraining2.entidad.Cliente;
 import mx.com.digitalchallengers.springtraining2.entidad.Factura;
 import mx.com.digitalchallengers.springtraining2.repository.ClienteRepository;
 import mx.com.digitalchallengers.springtraining2.repository.FacturaRepository;
+import mx.com.digitalchallengers.springtraining2.service.FacturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.QueryParam;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Controller
@@ -22,6 +24,9 @@ public class FacturaController {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private FacturaService facturaService;
 
     @GetMapping("/clientes/{idCliente}/facturas")
     public List<Factura> getFactura(@PathVariable(value = "idCliente") int id){
@@ -38,16 +43,21 @@ public class FacturaController {
         return facturas;
     }
 
-    @PostMapping(value = "/facturas/create", consumes = "application/json")
-    public Factura crearFactura(@QueryParam("nombre") String nombre,
-                                @QueryParam("apellido") String apellido,
-                                @RequestBody Factura factura){
-        Cliente cliente = clienteRepository.getClienteByNombreAndApellido(nombre,apellido);
-
-        factura.setCliente(cliente);
-        facturaRepository.save(factura);
-        return factura;
+    @PostMapping(value = "/clientes/{id}/facturas", consumes = "application/json")
+    public Factura createFactura(@PathVariable("id")int id, @RequestBody Factura factura){
+        return facturaService.facturaClienteValidator(factura,id);
     }
+
+//    @PostMapping(value = "/facturas", consumes = "application/json")
+//    public Factura crearFactura(@QueryParam("nombre") String nombre,
+//                                @QueryParam("apellido") String apellido,
+//                                @RequestBody Factura factura){
+//        Cliente cliente = clienteRepository.getClienteByNombreAndApellido(nombre,apellido);
+//
+//        factura.setCliente(cliente);
+//        facturaRepository.save(factura);
+//        return factura;
+//    }
 
     @PutMapping(value = "/facturas", consumes = "application/json")
     public Factura updateFactura(@QueryParam("nombre") String nombre,
