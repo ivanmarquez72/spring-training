@@ -2,6 +2,8 @@ package mx.com.digitalchallengers.springtraining2.controller;
 
 import mx.com.digitalchallengers.springtraining2.entidad.Cliente;
 import mx.com.digitalchallengers.springtraining2.entidad.Factura;
+import mx.com.digitalchallengers.springtraining2.pojo.Cli;
+import mx.com.digitalchallengers.springtraining2.pojo.Fac;
 import mx.com.digitalchallengers.springtraining2.repository.ClienteRepository;
 import mx.com.digitalchallengers.springtraining2.repository.FacturaRepository;
 import mx.com.digitalchallengers.springtraining2.service.FacturaService;
@@ -44,8 +46,8 @@ public class FacturaController {
     }
 
     @PostMapping(value = "/clientes/{id}/facturas", consumes = "application/json")
-    public Factura createFactura(@PathVariable("id")int id, @RequestBody Factura factura){
-        return facturaService.facturaClienteValidator(factura,id);
+    public void createFactura(@PathVariable("id")int id, @RequestBody Fac factura){
+        facturaService.facturaClienteValidator(factura, id);
     }
 
 //    @PostMapping(value = "/facturas", consumes = "application/json")
@@ -81,11 +83,6 @@ public class FacturaController {
                 } );
 
     }
-
-
-
-
-
 
     @GetMapping("/facturasIdNative")
     public List<Factura> getFacturaByClienteId(){

@@ -16,10 +16,6 @@ import java.util.List;
 @Builder
 @Table(
         name = "cliente"
-        //,UniqueConstraints = @UniqueConstraint(
-        //        name = "nombreid_s",
-        //        columnNames = "nombre"
-        //)
 )
 public class Cliente implements Serializable {
     @Id
@@ -34,8 +30,8 @@ public class Cliente implements Serializable {
     private String apellido;
 
     @OneToMany(
-            mappedBy = "cliente",
-            fetch = FetchType.EAGER
+            mappedBy = "cliente"
+            //,fetch = FetchType.EAGER
             //mappedBy = "cliente"
             //,orphanRemoval = true
     )

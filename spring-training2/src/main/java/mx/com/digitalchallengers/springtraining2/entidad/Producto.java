@@ -5,23 +5,31 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(
+        name = "producto"
+)
 public class Producto implements Serializable {
     @Id
     @GeneratedValue(
             strategy = GenerationType.IDENTITY
     )
     private int idProducto;
+
+    @Column(name = "nombre")
     private String nombre;
+
+    @Column(name = "precio")
     private int precio;
+
+
 }

@@ -6,6 +6,8 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -18,8 +20,10 @@ public class Factura implements Serializable {
             strategy = GenerationType.IDENTITY
     )
     private int idFactura;
+
     @Column(name = "fechaFactura")
     private String fecha;
+
     @Column(name = "referenciaFactura")
     private String referenciaFactura;
 
@@ -33,6 +37,19 @@ public class Factura implements Serializable {
     //JoinColumn y Column no pueden ir juntas
     //Unidecchionalidad solo una puede tener la notacion de la relacion
 
+    @ManyToMany
+    @JoinTable(
+            name = "factura_producto",
+            joinColumns = @JoinColumn(
+                    name = "factura_id",
+                    referencedColumnName = "idFactura"
+            ),
+            inverseJoinColumns = @JoinColumn(
+                    name = "id_producto",
+                    referencedColumnName = "idProducto"
+            )
+    )
+    private List<Producto> productos = new ArrayList<>();
 
     @Override
     public String toString() {
