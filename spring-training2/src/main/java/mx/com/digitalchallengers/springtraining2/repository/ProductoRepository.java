@@ -1,6 +1,7 @@
 package mx.com.digitalchallengers.springtraining2.repository;
 
 import mx.com.digitalchallengers.springtraining2.entidad.Cliente;
+import mx.com.digitalchallengers.springtraining2.entidad.FacturaProductos;
 import mx.com.digitalchallengers.springtraining2.entidad.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -23,6 +24,22 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     )
     void  deleteProductFactura(@Param("idProducto")int idProducto);
 
+    @Query(
+            value = "delete from factura_producto " +
+                    "where id_producto = :idProducto " +
+                    "and factura_id = :idFactura",
+            nativeQuery = true
+    )
+    void deleteProductFactura(@Param("idProducto") int idProducto,
+                              @Param("idFactura") int idFactura);
 
+    @Query(
+            value = "select factura_id, id_producto from factura_producto " +
+                    "where id_producto = :idProducto " +
+                    "and factura_id = :idFactura",
+            nativeQuery = true
+    )
+    FacturaProductos exiteProductFactura(@Param("idProducto") int idProducto,
+                                         @Param("idFactura") int idFactura);
 
 }

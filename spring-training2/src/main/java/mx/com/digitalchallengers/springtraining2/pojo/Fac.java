@@ -24,7 +24,7 @@ public class Fac implements Serializable {
         factura.setCliente(fac.getInfo_cli().cliToCliente(fac.getInfo_cli()));
         factura.setReferenciaFactura(fac.re_fact);
         factura.setFecha(fac.getFe_fact());
-        factura.setProductos(service.ProdToProducto(fac.products));
+        factura.setProductos(service.prodToProducto(fac.products));
         return factura;
     }
 

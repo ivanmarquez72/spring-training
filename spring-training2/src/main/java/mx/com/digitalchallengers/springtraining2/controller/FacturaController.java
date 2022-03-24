@@ -2,6 +2,7 @@ package mx.com.digitalchallengers.springtraining2.controller;
 
 import mx.com.digitalchallengers.springtraining2.entidad.Cliente;
 import mx.com.digitalchallengers.springtraining2.entidad.Factura;
+import mx.com.digitalchallengers.springtraining2.entidad.FacturaProductos;
 import mx.com.digitalchallengers.springtraining2.pojo.Product;
 import mx.com.digitalchallengers.springtraining2.entidad.Producto;
 import mx.com.digitalchallengers.springtraining2.pojo.Fac;
@@ -92,7 +93,7 @@ public class FacturaController {
 
     @PostMapping(value = "/facturas/{id}/productos", consumes = "application/json")
     public List<Producto> insertProductos(@PathVariable("id") int id,
-                                                    @RequestBody List<Product> products){
+                                          @RequestBody List<Product> products){
 
         List<Producto> productos = new ArrayList<>();
         Producto producto;
@@ -109,8 +110,7 @@ public class FacturaController {
 
     @PostMapping(value = "/facturas/productos", consumes = "application/json")
     public List<Producto> insertProductosReferencia(@QueryParam("referencia") String ref,
-                                          @RequestBody List<Product> products){
-
+                                                    @RequestBody List<Product> products){
         List<Producto> productos = new ArrayList<>();
         Producto producto;
         for (Product product : products){
@@ -127,5 +127,37 @@ public class FacturaController {
     @DeleteMapping("/facturas/{id}")
     public void deleteFactura(@PathVariable(value = "id") int id){
         facturaRepository.deleteById(id);
+    }
+
+    @DeleteMapping(value = "/facturas/{id}/productos", consumes = "application/json")
+    public void deleteProductoFactura(@PathVariable(value = "id")int id,
+                                      @RequestBody List<Product> products){
+
+        Factura factura = facturaRepository.getById(id);
+        List<Producto> productos = factura.getProductos();
+
+        for (Producto producto: productos) {
+            for (Product product : products) {
+                if(producto.getNombre() == product.getNombre()){
+                    productoRepository.deleteProductFactura(producto.getIdProducto(), id);
+                    productos.remove(producto);
+                }
+            }
+        }
+        factura.setProductos(productos);
+        facturaRepository.save(factura);
+
+//        Producto producto;
+//        FacturaProductos factProd;
+//        for (Product product : products){
+//            producto = productoRepository.getProductoByNombre(product.getNombre());
+//
+//            if(productoRepository.exiteProductFactura(producto.getIdProducto(), id) != null){
+//                productoRepository.deleteProductFactura(producto.getIdProducto(), id);
+//            }else{
+//                return "No existe el producto en la factura";
+//            }
+//        }
+//        return "Se han eliminado los productos";
     }
 }

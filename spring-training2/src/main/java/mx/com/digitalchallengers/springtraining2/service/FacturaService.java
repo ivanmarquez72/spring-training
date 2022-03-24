@@ -111,7 +111,7 @@ public class FacturaService {
 
     }
 
-    public List<Producto> ProdToProducto(List<Product> products){
+    public List<Producto> prodToProducto(List<Product> products){
         List<Producto> productos = new ArrayList<>();
         for (Product product: products) {
             Producto producto = productoRepository.getProductoByNombre(product.getNombre());

@@ -2,9 +2,11 @@ package mx.com.digitalchallengers.springtraining2.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import mx.com.digitalchallengers.springtraining2.entidad.Cliente;
+import mx.com.digitalchallengers.springtraining2.entidad.Factura;
 import mx.com.digitalchallengers.springtraining2.entidad.Result;
 import mx.com.digitalchallengers.springtraining2.entidad.ResultCliente;
 import mx.com.digitalchallengers.springtraining2.repository.ClienteRepository;
+import mx.com.digitalchallengers.springtraining2.repository.FacturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ public class ClienteController {
     private ClienteRepository clienteRepository;
 
     private RestTemplate restTemplate;
+
+    @Autowired
+    private FacturaRepository facturaRepository;
 
     @Autowired
     public ClienteController(RestTemplate restTemplate){
@@ -80,6 +85,8 @@ public class ClienteController {
 
     @DeleteMapping("/clientes/{id}")
     public void deleteCliente(@PathVariable(value = "id") int id){
+        Cliente cliente = clienteRepository.getClienteById(id);
+        List<Factura> facturas = cliente.getFacturas();
         clienteRepository.deleteById(id);
     }
 
