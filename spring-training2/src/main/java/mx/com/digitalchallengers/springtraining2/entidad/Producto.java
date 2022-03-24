@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Data
@@ -29,7 +27,7 @@ public class Producto implements Serializable {
     private String nombre;
 
     @Column(name = "precio")
-    private int precio;
+    private float precio;
 
 
 }

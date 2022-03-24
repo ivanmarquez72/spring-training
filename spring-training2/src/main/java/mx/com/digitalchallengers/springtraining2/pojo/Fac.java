@@ -3,13 +3,10 @@ package mx.com.digitalchallengers.springtraining2.pojo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import mx.com.digitalchallengers.springtraining2.entidad.Cliente;
 import mx.com.digitalchallengers.springtraining2.entidad.Factura;
-import mx.com.digitalchallengers.springtraining2.repository.ClienteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import mx.com.digitalchallengers.springtraining2.service.FacturaService;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -19,12 +16,15 @@ public class Fac implements Serializable {
     private String re_fact;
     private String fe_fact;
     private Cli info_cli;
+    private List<Product> products;
 
     public Factura facToFactura(Fac fac){
+        FacturaService service = new FacturaService();
         Factura factura = new Factura();
         factura.setCliente(fac.getInfo_cli().cliToCliente(fac.getInfo_cli()));
         factura.setReferenciaFactura(fac.re_fact);
         factura.setFecha(fac.getFe_fact());
+        factura.setProductos(service.ProdToProducto(fac.products));
         return factura;
     }
 
@@ -37,8 +37,6 @@ public class Fac implements Serializable {
         return fac;
     }
 
-    @Autowired
-    private ClienteRepository clienteRepository;
 
 //    public Cliente agregarFacACliente(Fac fac, int id){
 //        Cliente cliente = clienteRepository.getClienteById(id);

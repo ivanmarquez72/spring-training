@@ -37,7 +37,7 @@ public class Factura implements Serializable {
     //JoinColumn y Column no pueden ir juntas
     //Unidecchionalidad solo una puede tener la notacion de la relacion
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "factura_producto",
             joinColumns = @JoinColumn(
@@ -58,5 +58,17 @@ public class Factura implements Serializable {
                 ", fecha='" + fecha + '\'' +
                 ", referenciaFactura='" + referenciaFactura + '\'' +
                 '}';
+    }
+
+    private float totalFactura(){
+        List<Producto> prod = this.productos;
+        float total = 0;
+        float total1 = 0;
+        for (Producto producto: prod) {
+            total = producto.getPrecio() + total1;
+            total = total1;
+
+        }
+        return total;
     }
 }

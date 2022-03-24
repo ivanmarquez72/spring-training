@@ -2,10 +2,13 @@ package mx.com.digitalchallengers.springtraining2.service;
 
 import mx.com.digitalchallengers.springtraining2.entidad.Cliente;
 import mx.com.digitalchallengers.springtraining2.entidad.Factura;
+import mx.com.digitalchallengers.springtraining2.entidad.Producto;
 import mx.com.digitalchallengers.springtraining2.pojo.Cli;
 import mx.com.digitalchallengers.springtraining2.pojo.Fac;
+import mx.com.digitalchallengers.springtraining2.pojo.Product;
 import mx.com.digitalchallengers.springtraining2.repository.ClienteRepository;
 import mx.com.digitalchallengers.springtraining2.repository.FacturaRepository;
+import mx.com.digitalchallengers.springtraining2.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,9 @@ public class FacturaService {
     @Autowired
     private FacturaRepository facturaRepository;
 
+    @Autowired
+    private ProductoRepository productoRepository;
+
     public void facturaClienteValidator(Fac fac, int id){
         Cliente cliente = clienteRepository.getClienteById(id);
 
@@ -28,6 +34,8 @@ public class FacturaService {
             cliente = new Cliente();
             cliente.setNombre(client.getNombre_cliente());
             cliente.setApellido(client.getApellido_cliente());
+
+
 
             List<Factura> facturas = new ArrayList<>();
             facturas = cliente.getFacturas();
@@ -101,5 +109,14 @@ public class FacturaService {
     public void deleteFactura(int idCliente, int idFactura){
         Cliente cliente = clienteRepository.getClienteById(idCliente);
 
+    }
+
+    public List<Producto> ProdToProducto(List<Product> products){
+        List<Producto> productos = new ArrayList<>();
+        for (Product product: products) {
+            Producto producto = productoRepository.getProductoByNombre(product.getNombre());
+            productos.add(producto);
+        }
+        return productos;
     }
 }

@@ -29,4 +29,16 @@ public interface FacturaRepository extends JpaRepository<Factura, Integer> {
 
     @Query("select f from Factura f where f.cliente.idCliente = :id and f.referenciaFactura = :referencia")
     Factura getFacturaByIdClienteAndReferencia(int id, String referencia);
+
+    @Query("select f from Factura f where f.referenciaFactura = :referencia")
+    Factura getFacturaByReferencia(String referencia);
+
+    @Query(
+            value = "delete from factura_producto " +
+                    "where id_producto = :idProducto " +
+                    "and factura_id = :idFactura",
+            nativeQuery = true
+    )
+    void  getClienteByNameParam(@Param("idProducto")int idProducto,
+                                @Param("idFactura")int idFactura);
 }
