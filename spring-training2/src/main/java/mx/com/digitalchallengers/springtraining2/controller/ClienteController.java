@@ -7,9 +7,11 @@ import mx.com.digitalchallengers.springtraining2.entidad.Result;
 import mx.com.digitalchallengers.springtraining2.entidad.ResultCliente;
 import mx.com.digitalchallengers.springtraining2.repository.ClienteRepository;
 import mx.com.digitalchallengers.springtraining2.repository.FacturaRepository;
+import mx.com.digitalchallengers.springtraining2.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,6 +30,9 @@ public class ClienteController {
 
     @Autowired
     private FacturaRepository facturaRepository;
+
+    @Autowired
+    private ProductoRepository productoRepository;
 
     @Autowired
     public ClienteController(RestTemplate restTemplate){
@@ -70,23 +75,16 @@ public class ClienteController {
         return cliente;
     }
 
-//    @GetMapping("/clientes")
-//    public List<Cliente> getClienteNombre(@QueryParam("nombre") String nombre){
-//        List<Cliente> clientes = clienteRepository.getClientesByNombre(nombre);
-//        return clientes;
-//    }
-//
-//    @GetMapping("/clientes")
-//    public List<Cliente> getClientesNombreAndApellido(@QueryParam("nombre") String nombre,
-//                                                     @QueryParam("apellido") String apellido){
-//        List<Cliente> clientes = clienteRepository.getClientesByNombreAndApellido(nombre,apellido);
-//        return clientes;
-//    }
-
+    @Transactional
     @DeleteMapping("/clientes/{id}")
     public void deleteCliente(@PathVariable(value = "id") int id){
         Cliente cliente = clienteRepository.getClienteById(id);
         List<Factura> facturas = cliente.getFacturas();
+
+        for (Factura factura: facturas) {
+            productoRepository.eliminarFacturaProducto(factura.getIdFactura());
+            facturaRepository.eliminarFacturaPorCliente(cliente.getIdCliente());
+        }
         clienteRepository.deleteById(id);
     }
 

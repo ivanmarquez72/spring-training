@@ -4,6 +4,7 @@ import mx.com.digitalchallengers.springtraining2.entidad.Cliente;
 import mx.com.digitalchallengers.springtraining2.entidad.FacturaProductos;
 import mx.com.digitalchallengers.springtraining2.entidad.Producto;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -24,6 +25,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     )
     void  deleteProductFactura(@Param("idProducto")int idProducto);
 
+    @Modifying
     @Query(
             value = "delete from factura_producto " +
                     "where id_producto = :idProducto " +
@@ -33,13 +35,12 @@ public interface ProductoRepository extends JpaRepository<Producto, Integer> {
     void deleteProductFactura(@Param("idProducto") int idProducto,
                               @Param("idFactura") int idFactura);
 
+    @Modifying
     @Query(
-            value = "select factura_id, id_producto from factura_producto " +
-                    "where id_producto = :idProducto " +
-                    "and factura_id = :idFactura",
+            value = "delete from factura_producto " +
+                    "where factura_id = :idFactura",
             nativeQuery = true
     )
-    FacturaProductos exiteProductFactura(@Param("idProducto") int idProducto,
-                                         @Param("idFactura") int idFactura);
+    void eliminarFacturaProducto(@Param("idFactura") int idFactura);
 
 }

@@ -13,9 +13,11 @@ import mx.com.digitalchallengers.springtraining2.service.FacturaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.QueryParam;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,11 +126,14 @@ public class FacturaController {
         return productos;
     }
 
+    @Transactional
     @DeleteMapping("/facturas/{id}")
     public void deleteFactura(@PathVariable(value = "id") int id){
+        productoRepository.eliminarFacturaProducto(id);
         facturaRepository.deleteById(id);
     }
 
+    @Transactional
     @DeleteMapping(value = "/facturas/{id}/productos", consumes = "application/json")
     public void deleteProductoFactura(@PathVariable(value = "id")int id,
                                       @RequestBody List<Product> products){
@@ -138,26 +143,13 @@ public class FacturaController {
 
         for (Producto producto: productos) {
             for (Product product : products) {
-                if(producto.getNombre() == product.getNombre()){
+                if(producto.getNombre().equals(product.getNombre())){
                     productoRepository.deleteProductFactura(producto.getIdProducto(), id);
-                    productos.remove(producto);
                 }
+
             }
         }
-        factura.setProductos(productos);
-        facturaRepository.save(factura);
-
-//        Producto producto;
-//        FacturaProductos factProd;
-//        for (Product product : products){
-//            producto = productoRepository.getProductoByNombre(product.getNombre());
-//
-//            if(productoRepository.exiteProductFactura(producto.getIdProducto(), id) != null){
-//                productoRepository.deleteProductFactura(producto.getIdProducto(), id);
-//            }else{
-//                return "No existe el producto en la factura";
-//            }
-//        }
-//        return "Se han eliminado los productos";
     }
+
+
 }
